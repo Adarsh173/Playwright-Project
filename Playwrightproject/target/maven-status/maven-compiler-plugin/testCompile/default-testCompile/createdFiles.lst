@@ -1,0 +1,3 @@
+com\adarsh\playwright\base\BaseTest.class
+com\adarsh\playwright\tests\LoginTest.class
+com\adarsh\playwright\tests\GoogleTest.class
