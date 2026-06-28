@@ -14,7 +14,7 @@ public class CartPage {
      private final Locator lblCartItemName;
      private final Locator lblCartItemPrice;
      private final Locator lblCartItemQuantity;
-
+     
 
     public CartPage(Page page) {
         this.page = page;
@@ -33,9 +33,7 @@ public class CartPage {
 
 }
 
-public void navigateToCart() {
-    
-}
+
 
 public void clickCheckout() {
     btnCheckout.click();
@@ -58,6 +56,16 @@ public int getCartItemCount() {
     } else {
         return 0;
     }
+
+}
+
+
+
+public boolean isItemInCart(String string) {
+    Locator product = page.locator(".cart_item")
+            .filter(new Locator.FilterOptions().setHasText(string));
+
+    return product.isVisible();
 
 }
 }
