@@ -7,12 +7,14 @@ public class InventoryPage {
 
     private final Page page;
     private final Locator lblProducts;
+    private final Locator lblCartIcon;
 
     public InventoryPage(Page page) {
 
         this.page = page;
 
         lblProducts = page.locator(".title");
+        lblCartIcon = page.locator(".shopping_cart_link");
     }
 
     public boolean isLoaded() {
@@ -49,4 +51,8 @@ public class InventoryPage {
             return 0;
         }
     }
+
+    public void navigateToCart() {
+    lblCartIcon.click();
+}
 }
