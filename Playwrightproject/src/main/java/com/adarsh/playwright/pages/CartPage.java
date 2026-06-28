@@ -60,8 +60,9 @@ public int getCartItemCount() {
 }
 
 
+//Verify that the selected product exists inside the cart.\
 
-public boolean isItemInCart(String string) {
+public boolean isProductPresent(String string) {
     Locator product = page.locator(".cart_item")
             .filter(new Locator.FilterOptions().setHasText(string));
 
