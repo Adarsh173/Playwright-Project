@@ -50,16 +50,6 @@ public void removeItemFromCart(String productName) {
             .click();
 }
 
-public int getCartItemCount() {
-    if (lblCartItemCount.isVisible()) {
-        return Integer.parseInt(lblCartItemCount.innerText());
-    } else {
-        return 0;
-    }
-
-}
-
-
 //Verify that the selected product exists inside the cart.\
 
 public boolean isProductPresent(String string) {
