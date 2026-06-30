@@ -50,7 +50,7 @@ public void removeItemFromCart(String productName) {
             .click();
 }
 
-//Verify that the selected product exists inside the cart.\
+//Verify that the selected product exists inside the cart.
 
 public boolean isProductPresent(String string) {
     Locator product = page.locator(".cart_item")

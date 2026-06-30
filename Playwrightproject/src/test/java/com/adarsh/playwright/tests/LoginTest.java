@@ -12,73 +12,66 @@ public class LoginTest extends BaseTest {
 
     private InventoryPage loginAsStandardUser() {
 
-    LoginPage loginPage = new LoginPage(page);
+        LoginPage loginPage = new LoginPage(page);
 
-    InventoryPage inventoryPage =
-            loginPage.login(
-                    "standard_user",
-                    "secret_sauce");
+        InventoryPage inventoryPage = loginPage.login(
+                "standard_user",
+                "secret_sauce");
 
-    Assert.assertTrue(inventoryPage.isLoaded());
+        Assert.assertTrue(inventoryPage.isLoaded());
 
-    return inventoryPage;
-}
+        return inventoryPage;
+    }
 
-    @Test(priority = 0,description = "Verify that the user is able to login successfully with valid credentials.") 
-public void verifySuccessfulLogin() {
+    @Test(priority = 0, description = "Verify that the user is able to login successfully with valid credentials.")
+    public void verifySuccessfulLogin() {
 
-    LoginPage loginPage = new LoginPage(page);
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-    InventoryPage inventoryPage =
-            loginPage.login(
-                    "standard_user",
-                    "secret_sauce");
+        Assert.assertTrue(inventoryPage.isLoaded());
+    }
 
-    Assert.assertTrue(inventoryPage.isLoaded());
-}
+    @Test(priority = 1, description = "Verify that the user is able to add a product to the cart and the cart badge count is updated accordingly.")
+    public void addProductToCart() {
 
-@Test(priority = 1,description = "Verify that the user is able to add a product to the cart and the cart badge count is updated accordingly.")
-public void addProductToCart(){
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-    InventoryPage inventoryPage = loginAsStandardUser();
+        inventoryPage.addToCart("Sauce Labs Backpack");
 
-    inventoryPage.addToCart("Sauce Labs Backpack");
-    
-    Assert.assertEquals(inventoryPage.getCartBadgeCount(),1,"Cart badge should show one item.");
-}
+        Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1, "Cart badge should show one item.");
+    }
 
-@Test(priority = 2,description = "Verify that the selected product exists inside the cart.")
-public void verifyItemInCart() {
-    CartPage cartPage = new CartPage(page);
-    InventoryPage inventoryPage = loginAsStandardUser();
+    @Test(priority = 2, description = "Verify that the selected product exists inside the cart.")
+    public void verifyItemInCart() {
+        CartPage cartPage = new CartPage(page);
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-    inventoryPage.addToCart("Sauce Labs Backpack");
-    
-    
-    Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1);
+        inventoryPage.addToCart("Sauce Labs Backpack");
 
-    inventoryPage.openCart();           
-    Assert.assertTrue(cartPage.isProductPresent("Sauce Labs Backpack"));
+        Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1);
 
-}
-@Test(priority = 3,description = "Verify that the user is able to sign in, add product to the cart, remove it from the cart, and assert cart badge count then naviate to the cart page and assert that the product is not present in the cart.")
-public void verifyRemainingProductAfterRemovingOneItem() {
-    CartPage cartPage = new CartPage(page);
-    InventoryPage inventoryPage = loginAsStandardUser();
+        inventoryPage.openCart();
+        Assert.assertTrue(cartPage.isProductPresent("Sauce Labs Backpack"));
 
-    inventoryPage.addToCart("Sauce Labs Backpack");
+    }
+
+    @Test(priority = 3, description = "Verify that the user is able to sign in, add product to the cart, remove it from the cart, and assert cart badge count then naviate to the cart page and assert that the product is not present in the cart.")
+    public void verifyRemainingProductAfterRemovingOneItem() {
+        CartPage cartPage = new CartPage(page);
+        InventoryPage inventoryPage = loginAsStandardUser();
+
+        inventoryPage.addToCart("Sauce Labs Backpack");
         inventoryPage.addToCart("Sauce Labs Bike Light");
 
-    
-    Assert.assertEquals(inventoryPage.getCartBadgeCount(), 2);
+        Assert.assertEquals(inventoryPage.getCartBadgeCount(), 2);
 
-    inventoryPage.removeFromCart("Sauce Labs Bike Light");
-    
-    Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1);
+        inventoryPage.removeFromCart("Sauce Labs Bike Light");
 
-    inventoryPage.openCart();           
-    Assert.assertFalse(cartPage.isProductPresent("Sauce Labs Bike Light"));
-    Assert.assertTrue(cartPage.isProductPresent("Sauce Labs Backpack"));
-}
+        Assert.assertEquals(inventoryPage.getCartBadgeCount(), 1);
+
+        inventoryPage.openCart();
+        Assert.assertFalse(cartPage.isProductPresent("Sauce Labs Bike Light"));
+        Assert.assertTrue(cartPage.isProductPresent("Sauce Labs Backpack"));
+    }
 
 }
