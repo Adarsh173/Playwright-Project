@@ -8,6 +8,7 @@ public class InventoryPage {
     private final Page page;
     private final Locator lblProducts;
     private final Locator lblCartIcon;
+    private final Locator cartBadge;
 
     public InventoryPage(Page page) {
 
@@ -15,6 +16,7 @@ public class InventoryPage {
 
         lblProducts = page.locator(".title");
         lblCartIcon = page.locator(".shopping_cart_link");
+        cartBadge = page.locator(".shopping_cart_badge");
     }
 
     public boolean isLoaded() {
@@ -51,8 +53,15 @@ public class InventoryPage {
             return 0;
         }
     }
-
-    public void navigateToCart() {
+//User should be able to open the cart.
+    public void openCart() {
     lblCartIcon.click();
 }
-}
+
+//User should be able to verify the cart badge count.
+ public int getCartBadgeCount() {
+        return Integer.parseInt(cartBadge.innerText());
+    }  
+
+    }  
+

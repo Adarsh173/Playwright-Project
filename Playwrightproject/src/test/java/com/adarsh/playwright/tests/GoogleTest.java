@@ -9,7 +9,6 @@ public class GoogleTest extends BaseTest {
     public void verifyGoogleTitle() {
 
         page.navigate("https://www.google.com");
-        page.waitForTimeout(5000);
         System.out.println(page.title());
         
 
