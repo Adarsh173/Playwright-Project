@@ -17,10 +17,12 @@ public class BrowserFactory {
 
             case "chrome":
             options.setChannel("chrome");
+            System.out.println("Launching Chrome browser...");
             return playwright.chromium().launch(options);
 
             case "edge":
             options.setChannel("msedge");
+            System.out.println("Launching Edge browser...");
             return playwright.chromium().launch(options);   
 
             default:
