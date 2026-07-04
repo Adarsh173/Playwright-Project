@@ -9,7 +9,6 @@ import com.adarsh.playwright.pages.CheckoutOverviewPage;
 import com.adarsh.playwright.pages.CheckoutPage;
 import com.adarsh.playwright.pages.InventoryPage;
 import com.adarsh.playwright.pages.LoginPage;
-import com.microsoft.playwright.Page.AddLocatorHandlerOptions;
 
 public class LoginTest extends BaseTest {
 
@@ -83,7 +82,6 @@ public class LoginTest extends BaseTest {
 
         CartPage cartPage = new CartPage(page);
         CheckoutPage checkoutPage = new CheckoutPage(page);
-        CheckoutOverviewPage checkoutOverviewPage = new CheckoutOverviewPage(page);
         InventoryPage inventoryPage = loginAsStandardUser();
 
         inventoryPage.addToCart("Sauce Labs Backpack"); 
@@ -91,8 +89,8 @@ public class LoginTest extends BaseTest {
         inventoryPage.openCart();
         cartPage.navigateToCheckoutPage();
 
-        Assert.assertTrue(page.url().contains("checkout-step-one.html"));
-        checkoutPage.fillCheckoutInformation("Adarsh", "Pandey", "227816");
+        Assert.assertTrue(checkoutPage.isLoaded());
+        CheckoutOverviewPage checkoutOverviewPage=checkoutPage.fillCheckoutInformation("Adarsh", "Pandey", "227816");
         Assert.assertTrue(page.url().contains("checkout-step-two.html"));
         checkoutOverviewPage.clickFinish();
         Assert.assertTrue(page.url().contains("checkout-complete.html"));

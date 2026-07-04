@@ -39,11 +39,11 @@ public class CheckoutPage {
     public void enterPostalCode(String postalCode) {
         InPostalCode.fill(postalCode);
     }
+
     public void clickContinue() {
         btnContinue.click();
     }
 
-    //User should be able to navigate from the Cart page to the Checkout Information page.
     public CheckoutOverviewPage fillCheckoutInformation(String firstName, String lastName, String postalCode) {
         enterFirstName(firstName);
         enterLastName(lastName);
@@ -55,8 +55,5 @@ public class CheckoutPage {
     public CheckoutOverviewPage clickOnContinue() {
         btnContinue.click();
         return new CheckoutOverviewPage(page);
-    }
-    public void clickfinish() {
-        btnFinish.click();
     }
 }

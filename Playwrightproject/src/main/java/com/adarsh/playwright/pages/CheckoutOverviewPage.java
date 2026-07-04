@@ -19,7 +19,7 @@ public class CheckoutOverviewPage {
     public String getPageTitle() {
         return pagetitle.innerText();
     }
-    
+
     public boolean isLoaded() {
         return pagetitle.isVisible();
     }
@@ -31,7 +31,4 @@ public class CheckoutOverviewPage {
     public void clickCancel() {
         btnCancel.click();
     }
-
-
 }
-
