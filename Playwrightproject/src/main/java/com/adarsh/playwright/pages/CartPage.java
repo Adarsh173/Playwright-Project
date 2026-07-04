@@ -59,4 +59,7 @@ public boolean isProductPresent(String string) {
     return product.isVisible();
 
 }
+public void navigateToCheckoutPage() {
+    btnCheckout.click();    
+}
 }

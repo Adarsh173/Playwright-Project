@@ -5,8 +5,11 @@ import org.testng.annotations.Test;
 
 import com.adarsh.playwright.base.BaseTest;
 import com.adarsh.playwright.pages.CartPage;
+import com.adarsh.playwright.pages.CheckoutOverviewPage;
+import com.adarsh.playwright.pages.CheckoutPage;
 import com.adarsh.playwright.pages.InventoryPage;
 import com.adarsh.playwright.pages.LoginPage;
+import com.microsoft.playwright.Page.AddLocatorHandlerOptions;
 
 public class LoginTest extends BaseTest {
 
@@ -74,4 +77,25 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(cartPage.isProductPresent("Sauce Labs Backpack"));
     }
 
+    @Test(priority = 4, description = "Verify that the user is able to navigate from the Cart page to the Checkout Information page.")
+    public void verifyNavigationToCheckoutPage() {
+
+
+        CartPage cartPage = new CartPage(page);
+        CheckoutPage checkoutPage = new CheckoutPage(page);
+        CheckoutOverviewPage checkoutOverviewPage = new CheckoutOverviewPage(page);
+        InventoryPage inventoryPage = loginAsStandardUser();
+
+        inventoryPage.addToCart("Sauce Labs Backpack"); 
+        inventoryPage.addToCart("Sauce Labs Bike Light");
+        inventoryPage.openCart();
+        cartPage.navigateToCheckoutPage();
+
+        Assert.assertTrue(page.url().contains("checkout-step-one.html"));
+        checkoutPage.fillCheckoutInformation("Adarsh", "Pandey", "227816");
+        Assert.assertTrue(page.url().contains("checkout-step-two.html"));
+        checkoutOverviewPage.clickFinish();
+        Assert.assertTrue(page.url().contains("checkout-complete.html"));
+        
+    }
 }
